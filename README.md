@@ -9,4 +9,4 @@ Data Sets (Entities):
 Basic 
 
 Entity-Relation Diagram
-![Database][https://github.com/Alol16578/Distros-mariaDB/erdiagram.png?raw=true]
+![Database][https://github.com/Alol16578/Distros-mariaDB/blob/main/erdiagram.png?raw=true]
