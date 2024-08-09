@@ -1,5 +1,5 @@
-* Idea of DB project
-** TITLE: DistroDB
+# Idea of DB project
+## TITLE: DistroDB
 Data Sets (Entities):
 
  - Distro: Represents a Linux Distribution, and contains it’s basic info. Each Distribution can have multiple Features, and a feature can be on multiple distros (M:M).
@@ -9,4 +9,4 @@ Data Sets (Entities):
 Basic 
 
 Entity-Relation Diagram
-![Database][erdiagram.png]
+![Database][https://github.com/Alol16578/Distros-mariaDB/erdiagram.png?raw=true]
