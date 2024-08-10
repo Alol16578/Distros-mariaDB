@@ -9,3 +9,13 @@ Data Sets (Entities):
 
 Entity-Relation Diagram
 ![Database](https://github.com/Alol16578/Distros-mariaDB/blob/main/erdiagram.png?raw=true)
+
+# Normalization Explanation
+
+1. 1-Normal-Form: There doesn't exist a non-atomic value in table, and no repeated attribute in any table (like having UserName1 and UserName2 columns on the same table)
+2. 2-Normal-Form: No Partial Keys dependencies (partial key dependencies must be part of 'composite primary keys'). Each table that has said partial key dependency in the database, is has a composite primary key
+3. 3-Normal-Form: No transitive dependencies
+4. 4-Normal-Form: Tables that contain Composite Keys (UserDevice, DeviceDistro, DistroFeature) have the composite key attributes as the only attributes on the table. This necessarily means that it cant have more independent Multivalued dependencies, and as already seen the tables in this db satisfy the previous normal forms.
+5. 5-Normal-Form: No cyclic dependencies. . This Normal Form was what my previous table since the previous Devices table was a fusion between an intersection table of User and Distro tables and also a table of Devices. To fix this I decomposed this table into 3 tables: Devices, UserDevice, DeviceDistro tables. I did this so that the table couldn’t be decomposed into a set of new tables each having fewer attributes than the original. But appart from this I see that it has all the other lower forms.
+6. Boyce-Codd Normal Form: Every determinant on the db is the primary key of the respective table (determinant meaning, the 'element that determines the rest of the elements')
+

@@ -1,7 +1,9 @@
+DROP TABLE IF EXISTS UserDevice;
+DROP TABLE IF EXISTS DeviceDistro;
 DROP TABLE IF EXISTS DistroFeature;
-DROP TABLE IF EXISTS Device;
 DROP TABLE IF EXISTS Users;
 DROP TABLE IF EXISTS Distro;
+DROP TABLE IF EXISTS Device;
 DROP TABLE IF EXISTS Feature;
 
 CREATE TABLE Users (
@@ -17,8 +19,16 @@ CREATE TABLE Distro (
   Name VARCHAR(20) NOT NULL,
   Version VARCHAR(10) NOT NULL,
   ReleaseDate DATE,
-  ImageDiskSpace DECIMAL(10,2),
+  ImageDiskSpace FLOAT,
   PRIMARY KEY(DistroID)
+);
+
+CREATE TABLE Device (
+  DeviceID INT NOT NULL AUTO_INCREMENT,
+  Name VARCHAR(50) NOT NULL,
+  DeviceType ENUM('PC', 'Phone', 'Laptop', 'Tablet') NOT NULL,
+  Manufacturer VARCHAR(20) NOT NULL,
+  PRIMARY KEY (DeviceID)
 );
 
 CREATE TABLE Feature (
@@ -30,23 +40,34 @@ CREATE TABLE Feature (
   PRIMARY KEY(FeatureID)
 );
 
-CREATE TABLE Device (
-  DeviceID INT NOT NULL,
+
+CREATE TABLE UserDevice (
   UserID INT NOT NULL,
+  DeviceID INT NOT NULL,
+  PRIMARY KEY (UserID,DeviceID),
+  FOREIGN KEY (UserID) REFERENCES Users(UserID)
+      ON DELETE CASCADE,
+  FOREIGN KEY (DeviceID) REFERENCES Device(DeviceID)
+      ON DELETE CASCADE
+);
+
+CREATE TABLE DeviceDistro (
+  DeviceID INT NOT NULL,
   DistroID INT NOT NULL,
-  Name VARCHAR(30),
-  DeviceType ENUM('PC', 'Phone', 'Laptop', 'Tablet') NOT NULL,
-  Manufacturer VARCHAR(20) NOT NULL,
-  PRIMARY KEY (DeviceID, UserID, DistroID),
-  FOREIGN KEY (UserID) REFERENCES Users(UserID),
+  PRIMARY KEY (DeviceID, DistroID),
+  FOREIGN KEY (DeviceID) REFERENCES Device(DeviceID)
+      ON DELETE CASCADE,
   FOREIGN KEY (DistroID) REFERENCES Distro(DistroID)
+      ON DELETE CASCADE
 );
 
 CREATE TABLE DistroFeature (
   DistroID INT NOT NULL,
   FeatureID INT NOT NULL,
   PRIMARY KEY (DistroID, FeatureID),
-  FOREIGN KEY (DistroID) REFERENCES Distro(DistroID),
+  FOREIGN KEY (DistroID) REFERENCES Distro(DistroID)
+      ON DELETE CASCADE,
   FOREIGN KEY (FeatureID) REFERENCES Feature(FeatureID)
+      ON DELETE CASCADE
 );
 
